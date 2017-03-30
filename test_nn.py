@@ -5,7 +5,7 @@ tf.reset_default_graph()
 #file_name
 file_name = "mnist/model.ckpt"
 #input_data
-mnist = input_data.read_data_sets("mnist",one_hot=True,reshape=False)
+mnist = input_data.read_data_sets("mnist",one_hot=True)
 
 #Parameters
 batch_size = 128 #batch size
@@ -30,13 +30,14 @@ biases = {
 }
 
 #
-x = tf.placeholder(tf.float32, [None,28,28,1])
+# x = tf.placeholder(tf.float32, [None,28,28,1])
+x = tf.placeholder(tf.float32, [None, n_input])
 y = tf.placeholder(tf.float32,[None, n_classes])
 
 x_flat = tf.reshape(x, [-1, n_input])
 
 #hidden layer with linear activation
-layer_1 = tf.add(tf.matmul(x_flat,weights['hidden_layer']), biases['hidden_layer'])
+layer_1 = tf.add(tf.matmul(x,weights['hidden_layer']), biases['hidden_layer'])
 
 #hidden layer with relu activation
 layer_1 = tf.nn.relu(layer_1)
